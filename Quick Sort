@@ -1,0 +1,65 @@
+public class QuickSort {
+    
+    // Основний метод для виклику швидкого сортування
+    public static void quickSort(int[] array) {
+        quickSort(array, 0, array.length - 1);
+    }
+
+    // Метод для рекурсивного виклику швидкого сортування
+    private static void quickSort(int[] array, int low, int high) {
+        if (low < high) {
+            // Розбиття масиву та отримання півота
+            int pivotIndex = partition(array, low, high);
+
+            // Рекурсивно сортуємо підмасиви ліворуч і праворуч від півота
+            quickSort(array, low, pivotIndex - 1);
+            quickSort(array, pivotIndex + 1, high);
+        }
+    }
+
+    // Метод для розбиття масиву та повернення індексу півота
+    private static int partition(int[] array, int low, int high) {
+        // Вибираємо останній елемент як півот
+        int pivot = array[high];
+        int i = low - 1;
+
+        // Переміщуємо елементи менше півота ліворуч від нього
+        for (int j = low; j < high; j++) {
+            if (array[j] < pivot) {
+                i++;
+                swap(array, i, j);
+            }
+        }
+
+        // Переміщуємо півот на його правильне місце
+        swap(array, i + 1, high);
+        return i + 1;
+    }
+
+    // Метод для обміну значень двох елементів масиву
+    private static void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    // Метод для виведення масиву на екран
+    public static void printArray(int[] array) {
+        for (int num : array) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+
+    // Main метод для тестування
+    public static void main(String[] args) {
+        int[] array = {7, 2, 1, 6, 8, 5, 3, 4};
+        System.out.println("Original array:");
+        printArray(array);
+
+        quickSort(array);
+        
+        System.out.println("Sorted array:");
+        printArray(array);
+    }
+}
